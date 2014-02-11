@@ -2,7 +2,7 @@
 
 #get all the arguments with argparse
 import argparse
-parser = argparse.ArgumentParser(description='Scrape JIRA issue dependencies and graph them')
+parser = argparse.ArgumentParser(description='Simple line-by-line hexadecimal serial terminal')
 parser.add_argument("--port", help="Port name(example:COMA,COM1,/dev/ttyUSB0)")
 parser.add_argument("--baud", help="Baud rate")
 parser.add_argument("--parity", help="none,even,odd")
@@ -54,6 +54,8 @@ while True:
 		break
 
 	line=line.strip()
+	if line=="":
+		continue
 
 	try:
 		bytes = bytearray.fromhex(line)
