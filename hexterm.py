@@ -35,7 +35,7 @@ def bin2hex( bytes ):
 
 def rxdaemon( ser ):
 	while True:
-		bytes = ser.read(30)
+		bytes = bytearray(ser.read(30))
 		if len(bytes):
 			print "RX:", bin2hex( bytes )
 
