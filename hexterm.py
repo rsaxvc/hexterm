@@ -27,7 +27,6 @@ else:
 	print "unknown parity, assuming none"
 	args.parity = serial.PARITY_NONE
 
-import serial
 ser = serial.Serial(args.port, args.baud, parity=args.parity, timeout=.1)
 
 def bin2hex( bytes ):
