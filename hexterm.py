@@ -6,6 +6,7 @@ parser = argparse.ArgumentParser(description='Simple line-by-line hexadecimal se
 parser.add_argument("--port", help="Port name(example:COMA,COM1,/dev/ttyUSB0)")
 parser.add_argument("--baud", help="Baud rate")
 parser.add_argument("--parity", help="none,even,odd")
+parser.add_argument("--ibd", help="inter-byte-delay milliseconds")
 args = parser.parse_args()
 
 if not args.port:
@@ -16,6 +17,7 @@ if not args.baud:
 args.baud = int(args.baud)
 
 import serial
+import time
 
 if not args.parity or args.parity == "none":
 	args.parity = serial.PARITY_NONE
@@ -63,6 +65,11 @@ while True:
 		continue
 
 	print "TX:", bin2hex( bytes )
-	ser.write(bytes)
+	if not args.ibd:
+		ser.write( bytes )
+	else:
+		for b in bytes:
+			ser.write(b)
+			time.sleep(int(args.ibd)/1000.0)
 
 ser.close()             # close port
